@@ -104,17 +104,7 @@ function drawbackground()
 	rectfill (0,0,127,127,13) --main background 
 	
 	rectfill (0,0,127,90,1)
-	
-	--[[ mapdraw(mapx,mapy, screenx,screeny, celw,celh, layer
-		mapx = starting from x position in map 
-		mapy = starting from y position in map 
-		screenx = starting from x position in map 
-		screeny = starting from y position in map 
-		celw = width of blocks starting at mapx 
-		celh = height of blocks starting at mapy 
-		layer = (optional) level of 
-	]]
-	
+
 	--scrolling star background
 	local sx = t/3
 	sx = sx % 128
@@ -187,7 +177,7 @@ end
 function drawscore() 
 	print(p1.score, 1, 1, 7) --score 
 	print("x"..multi, 1, 9, 7) --multiplier 
-	if(curmulticount > 0) then 
+	if(curmulticount > 0) then --multiplier countdown
 		for x = 0, flr(curmulticount/60) do
 			spr(16, x * 8, 16)
 		end 
@@ -397,11 +387,11 @@ function controlscore()
 
 	if multi > 1 then
 		curmulticount -= 1 
-		if curmulticount < 0 then curmulticount = 0 end 
 		if curmulticount <= 0 then 
+			curmulticount = 0
 			multi -= multidec
-			curmulticount = multicountmax 
-			--currentspawnrate = respawnmax 
+			if multi <= 0 then multi = 0 end
+			curmulticount = 0 
 		end 
 	end 
 end 
